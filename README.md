@@ -35,10 +35,10 @@ DjHeros Connector is a plugin for [Nicotine+](https://github.com/nicotine-plus/n
 4. **Lancer Nicotine+ et activer le plugin**
 
 ## 🎯 Utilisation / Usage
-1️⃣ **Lancer Nicotine+ et activer le plugin**
-2️⃣ **Entrer l’URL** où se trouve le fichier `propositions.json`
-3️⃣ **Sélectionner le format audio et la qualité souhaitée**
-4️⃣ **Cliquer sur Rechercher et Télécharger**
+1️⃣ **Lancer Nicotine+ et activer le plugin**  
+2️⃣ **Entrer l’URL** où se trouve le fichier `propositions.json`  
+3️⃣ **Sélectionner le format audio et la qualité souhaitée**  
+4️⃣ **Cliquer sur Rechercher et Télécharger**  
 
 ## 🤝 Contribution
 **Français :**
