@@ -62,7 +62,7 @@ Distribué sous licence **GNU General Public License v3.0**.
 
 ### 📌 Description
 
-**DjHeros Connector** is a plugin for Nicotine+ that allows you to automatically search and download audio files based on predefined criteria. It integrates with the DjHeros project to simplify track retrieval.
+**DjHeros Connector** is a plugin for Nicotine+ that allows you to automatically search and download audio files based on predefined criteria. It integrates with the [DjHeros](https://github.com/kodcast/DjHeros) project to simplify track retrieval.
 
 ### 🚀 Features
 
