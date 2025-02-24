@@ -8,6 +8,7 @@ import gettext
 import os
 import urllib.request
 import json
+import urllib.parse
 
 # Configuration de la localisation.
 LOCALE_DIR = os.path.join(os.path.dirname(__file__), "locales")
@@ -251,6 +252,10 @@ class Plugin(BasePlugin):
         if term == self.current_pending_term and not self.download_launched:
             self.log(_("❌ No matching file found for {term}").format(term=term))
             self.missing_search_terms.add(term)
+        
+        # Mettre à jour le statut de la proposition dans propositions.json
+        self.update_proposal_status(term, "searched")
+        
         self.current_timeout = None
         self.schedule_next_search()
         return False
@@ -308,6 +313,9 @@ class Plugin(BasePlugin):
                     self.current_timeout = None
                 GLib.timeout_add_seconds(self.download_delay, self.delayed_download, user, file_path)
                 self.download_launched = True
+                
+                # Mettre à jour le statut de la proposition dans propositions.json
+                self.update_proposal_status(self.current_pending_term, "searched")
                 break
 
         if not found_match:
@@ -329,7 +337,24 @@ class Plugin(BasePlugin):
         self.schedule_next_search()
         return False
 
+    def update_proposal_status(self, term, status="searched"):
+        """
+        Envoie une requête POST à validation.php pour mettre à jour le statut d'une proposition.
+        """
+        base_url = self.url_entry.get_text().strip()
+        if not base_url.endswith('/'):
+            base_url += '/'
+        
+        url = base_url + "validation.php"
+        data = urllib.parse.urlencode({'term': term, 'status': status}).encode('utf-8')
+        
+        try:
+            with urllib.request.urlopen(url, data=data) as response:
+                response_data = response.read().decode('utf-8')
+                self.log(_("📡 Updated status for {term} to {status}").format(term=term, status=status))
+        except Exception as e:
+            self.log(_("❌ Error updating status for {term}: {error}").format(term=term, error=e))
+
     def log(self, message):
         """Affiche un message dans les logs de Nicotine+."""
         print(f"[djheros_connector] {message}")
-
