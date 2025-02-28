@@ -228,6 +228,10 @@ class Plugin(BasePlugin):
         self.download_launched = False
 
         self.log(_("📡 Searching for: {term}").format(term=term))
+
+        # Mise à jour immédiate du statut de la proposition à "searched"
+        self.update_proposal_status(term, "searched")
+
         try:
             core.search.do_search(term, mode="global")
         except Exception as e:
@@ -314,7 +318,7 @@ class Plugin(BasePlugin):
                 GLib.timeout_add_seconds(self.download_delay, self.delayed_download, user, file_path)
                 self.download_launched = True
                 
-                # Mettre à jour le statut de la proposition dans propositions.json
+                # Mise à jour du statut en cas de correspondance trouvée
                 self.update_proposal_status(self.current_pending_term, "searched")
                 break
 
@@ -358,3 +362,4 @@ class Plugin(BasePlugin):
     def log(self, message):
         """Affiche un message dans les logs de Nicotine+."""
         print(f"[djheros_connector] {message}")
+
